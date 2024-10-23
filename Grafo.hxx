@@ -79,6 +79,7 @@ bool Grafo<T>::insertarVertice(T ver) {
         }
         delete[] aristas;
         aristas = nmatriz;
+        res = true;
     }
     return res;
 }
@@ -166,4 +167,23 @@ bool Grafo<T>::eliminarArista (T origen, T destino) {
 			res = true;
 		}
 		return res;
-}   
+}
+
+template <class T>
+void Grafo<T>::plano() {
+    typename std::vector<T>::iterator it = vertices.begin();
+    for (;it != vertices.end(); it++) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
+template <class T>
+void Grafo<T>::DFS() {
+
+}
+
+template <class T>
+void Grafo<T>::BFS() {
+    
+}

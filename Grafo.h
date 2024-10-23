@@ -20,7 +20,10 @@ class Grafo {
         bool insertarArista(T ori, T des, int cos);
         int buscarArista(T origen, T destino);
         bool eliminarVertice(T ver);
-        bool eliminarArista (T origen, T destino);    
+        bool eliminarArista (T origen, T destino);
+        void plano();
+        void DFS();
+        void BFS();    
 };
 
 #include "Grafo.hxx"

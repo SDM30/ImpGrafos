@@ -15,11 +15,7 @@ int main() {
     grafo.insertarVertice(4);
 
     // Mostrar los vértices
-    std::cout << "Vértices: ";
-    for (const auto& vertice : grafo.getVertices()) {
-        std::cout << vertice << " ";
-    }
-    std::cout << std::endl;
+    grafo.plano();
 
     // Insertar aristas
     std::cout << "Insertando aristas..." << std::endl;
@@ -50,12 +46,17 @@ int main() {
 
     // Mostrar los vértices después de la eliminación
     std::cout << "Vértices después de la eliminación: ";
-    for (const auto& vertice : grafo.getVertices()) {
-        std::cout << vertice << " ";
-    }
-    std::cout << std::endl;
+    grafo.plano();
 
     // Mostrar la matriz de adyacencia después de la eliminación
+    mostrarMatrizAdyacencia(grafo);
+
+    // Insertar nuevas aristas entre los vértices restantes
+    std::cout << "Insertando nuevas aristas entre los vértices restantes..." << std::endl;
+    grafo.insertarArista(1, 4, 30);
+    grafo.insertarArista(3, 1, 5);
+
+    // Mostrar la nueva matriz de adyacencia
     mostrarMatrizAdyacencia(grafo);
 
     // Eliminar una arista
@@ -66,7 +67,7 @@ int main() {
         std::cout << "Arista entre 1 y 3 no encontrada." << std::endl;
     }
 
-    // Mostrar las aristas después de la eliminación
+    // Mostrar las aristas desde el vértice 1 después de la eliminación
     std::cout << "Aristas desde vértice 1 después de la eliminación:" << std::endl;
     for (int i = 0; i < grafo.cantVertices(); ++i) {
         int peso = grafo.buscarArista(1, grafo.getVertices()[i]);
@@ -75,12 +76,25 @@ int main() {
         }
     }
 
+    // Eliminar todos los vértices uno por uno
+    std::cout << "Eliminando todos los vértices uno por uno..." << std::endl;
+    std::vector<int> verticesAEliminar = grafo.getVertices(); // Copiar los vértices actuales
+    for (const auto& vertice : verticesAEliminar) {
+        std::cout << "Eliminando vértice " << vertice << "..." << std::endl;
+        grafo.eliminarVertice(vertice);
+        mostrarMatrizAdyacencia(grafo);
+    }
+
     return 0;
 }
 
 void mostrarMatrizAdyacencia(Grafo<int>& grafo) {
     std::cout << "Matriz de Adyacencia:" << std::endl;
     int numVer = grafo.cantVertices();
+    if (numVer == 0) {
+        std::cout << "La matriz está vacía." << std::endl;
+        return;
+    }
     for (int i = 0; i < numVer; ++i) {
         for (int j = 0; j < numVer; ++j) {
             std::cout << grafo.getAristas()[i][j] << " "; // Asegúrate de que 'aristas' sea accesible.
