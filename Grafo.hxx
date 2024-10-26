@@ -170,6 +170,25 @@ bool Grafo<T>::eliminarArista (T origen, T destino) {
 }
 
 template <class T>
+std::vector<T> Grafo<T>::vecinosVertice(T ver) {
+    int indice = buscarVertice(ver);
+    std::vector<T> ver_vecinos;
+
+    if (indice != -1) {
+        //Ubicar los vecinos que le correspondan al vertice
+        for (int i = 0; i < cantVertices(); i++) {
+            if (aristas[indice][i] != 0) {
+                ver_vecinos.push_back(vertices[i]);
+            }
+        }
+    }
+
+    //Ordenar los vecinos dependiendo de su tipo de dato
+    std::sort(ver_vecinos.begin(), ver_vecinos.end());
+    return ver_vecinos;
+}
+
+template <class T>
 void Grafo<T>::plano() {
     typename std::vector<T>::iterator it = vertices.begin();
     for (;it != vertices.end(); it++) {
@@ -179,11 +198,81 @@ void Grafo<T>::plano() {
 }
 
 template <class T>
-void Grafo<T>::DFS() {
+std::vector<T> Grafo<T>::DFS(T ver_inicial) {
+    std::vector<bool> ver_visitados;
+    std::vector<T> caminoDFS;
+    std::stack<T> pila_ver;
 
+    if (buscarVertice(ver_inicial) == -1) {
+        std::cout << "El vertice " << ver_inicial << " no esta dentro del grafo" << std::endl;
+        return caminoDFS;
+    }
+
+    pila_ver.push(ver_inicial);
+
+    ver_visitados.resize(cantVertices(), false);
+
+    while (!pila_ver.empty()) {
+        T ver_actual = pila_ver.top();
+        pila_ver.pop();
+        //Obtener todos los vertices que tengan a ver_actual como origen
+        std::vector<T> ver_vecinos = vecinosVertice(ver_actual);
+        int ind = buscarVertice(ver_actual);
+        //Revisar que el vertice aun no ha sido visitado
+        if(!ver_visitados[ind]) {
+            std::cout<< vertices[ind] << " ";
+            ver_visitados[ind] = true;
+            caminoDFS.push_back(vertices[ind]);
+
+            typename std::vector<T>::reverse_iterator it = ver_vecinos.rbegin();
+            for (;it != ver_vecinos.rend(); it ++) {
+                pila_ver.push(*it);
+            }   
+
+        }
+    }
+
+    std::cout << std::endl;
+
+    return caminoDFS;
 }
 
 template <class T>
-void Grafo<T>::BFS() {
-    
+std::vector<T> Grafo<T>::BFS(T ver_inicial) {
+    std::vector<bool> ver_visitados;
+    std::vector<T> caminoBFS;
+    std::queue<T> pila_ver;
+
+    if (buscarVertice(ver_inicial) == -1) {
+        std::cout << "El vertice " << ver_inicial << " no esta dentro del grafo" << std::endl;
+        return caminoBFS;
+    }
+
+    pila_ver.push(ver_inicial);
+
+    ver_visitados.resize(cantVertices(), false);
+
+    while (!pila_ver.empty()) {
+        T ver_actual = pila_ver.front();
+        pila_ver.pop();
+        //Obtener todos los vertices que tengan a ver_actual como origen
+        std::vector<T> ver_vecinos = vecinosVertice(ver_actual);
+        int ind = buscarVertice(ver_actual);
+        //Revisar que el vertice aun no ha sido visitado
+        if(!ver_visitados[ind]) {
+            std::cout<< vertices[ind] << " ";
+            ver_visitados[ind] = true;
+            caminoBFS.push_back(vertices[ind]);
+
+            typename std::vector<T>::iterator it = ver_vecinos.begin();
+            for (;it != ver_vecinos.end(); it ++) {
+                pila_ver.push(*it);
+            }   
+
+        }
+    }
+
+    std::cout << std::endl;
+
+    return caminoBFS;
 }

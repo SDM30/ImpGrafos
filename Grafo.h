@@ -1,6 +1,9 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include <vector>
+#include <queue>
+#include <stack>
+#include <algorithm>
 
 template<class T>
 class Grafo {
@@ -21,9 +24,10 @@ class Grafo {
         int buscarArista(T origen, T destino);
         bool eliminarVertice(T ver);
         bool eliminarArista (T origen, T destino);
+        std::vector<T> vecinosVertice(T ver);
         void plano();
-        void DFS();
-        void BFS();    
+        std::vector<T> DFS(T ver_inicial);
+        std::vector<T> BFS(T ver_inicial);    
 };
 
 #include "Grafo.hxx"
