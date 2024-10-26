@@ -14,7 +14,7 @@ class Grafo {
         Grafo();
         void setVertices(std::vector<T> vertices);
         void setAristas (int** aristas);
-        std::vector<T> getVertices();
+        const std::vector<T>& getVertices() const;
         int** getAristas();
         int cantVertices();
         int cantAristas();

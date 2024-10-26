@@ -16,7 +16,7 @@ void Grafo<T>::setAristas (int** aristas) {
 }
 
 template <class T>
-std::vector<T> Grafo<T>::getVertices() {
+const std::vector<T>& Grafo<T>::getVertices() const {
     return this->vertices;
 }
 
