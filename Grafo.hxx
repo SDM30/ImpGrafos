@@ -98,6 +98,14 @@ bool Grafo<T>::insertarArista(T ori, T des, int cos) {
     return res;
 }
 
+
+template <class T>
+bool Grafo<T>::insAristaNoDir(T ori, T des, int cos) {
+   bool res1 = insertarArista(ori, des, cos);
+   bool res2 = insertarArista(des, ori, cos);
+   return (res1 && res2); 
+}
+
 template <class T>
 int Grafo<T>::buscarArista(T origen, T destino) {
 		int res = -1;
@@ -167,6 +175,14 @@ bool Grafo<T>::eliminarArista (T origen, T destino) {
 			res = true;
 		}
 		return res;
+}
+
+template <class T>
+bool Grafo<T>::elimAristaNoDir (T origen, T destino) {
+    bool res1 = eliminarArista(origen, destino);
+    bool res2 = eliminarArista(destino, origen);
+
+    return (res1 && res2);
 }
 
 template <class T>

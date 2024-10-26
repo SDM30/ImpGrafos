@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Grafo.h" // Asegúrate de que el archivo esté correctamente referenciado
 
-void mostrarMatrizAdyacencia(Grafo<int>& grafo);
+template <class T>
+void mostrarMatrizAdyacencia(Grafo<T>& grafo);
 void pruebaNumeros();
 void pruebaLetras();
 
@@ -12,7 +13,8 @@ int main() {
 
 }
 
-void mostrarMatrizAdyacencia(Grafo<int>& grafo) {
+template <class T>
+void mostrarMatrizAdyacencia(Grafo<T>& grafo) {
     std::cout << "Matriz de Adyacencia:" << std::endl;
     int numVer = grafo.cantVertices();
     if (numVer == 0) {
@@ -147,26 +149,13 @@ void pruebaLetras() {
 
     // Insertar aristas
     std::cout << "Insertando aristas..." << std::endl;
-    grafo.insertarArista('a', 'b', 1);
-    grafo.insertarArista('b', 'a', 1);
-
-    grafo.insertarArista('a', 'c', 1);
-    grafo.insertarArista('c', 'a', 1);
-
-    grafo.insertarArista('a', 'd', 1);
-    grafo.insertarArista('d', 'a', 1);
-
-    grafo.insertarArista('b', 'c', 1);
-    grafo.insertarArista('c', 'b', 1);
-
-    grafo.insertarArista('b', 'e', 1);
-    grafo.insertarArista('e', 'b', 1);
-
-    grafo.insertarArista('d', 'e', 1);
-    grafo.insertarArista('e', 'd', 1);
-
-    grafo.insertarArista('d', 'f', 1);
-    grafo.insertarArista('f', 'd', 1);
+    grafo.insAristaNoDir('a', 'b', 1);
+    grafo.insAristaNoDir('a', 'c', 1);
+    grafo.insAristaNoDir('a', 'd', 1);
+    grafo.insAristaNoDir('b', 'c', 1);
+    grafo.insAristaNoDir('b', 'e', 1);
+    grafo.insAristaNoDir('d', 'e', 1);
+    grafo.insAristaNoDir('d', 'f', 1);
 
     std::cout << "Recorrido en profundidad:" << std::endl;
     std::vector<char>::const_iterator it = grafo.getVertices().begin();
@@ -181,4 +170,11 @@ void pruebaLetras() {
         printf("Recorrido desde %c: \n",*it_B);
         grafo.BFS(*it_B);
     }
+    std::cout << "Antes de eliminar Arista" << std::endl;
+    mostrarMatrizAdyacencia(grafo);
+
+    std::cout << "Despues de eliminar Arista" << std::endl;
+    grafo.elimAristaNoDir('a', 'b');
+    grafo.elimAristaNoDir('a', 'c');
+    mostrarMatrizAdyacencia(grafo);
 }
