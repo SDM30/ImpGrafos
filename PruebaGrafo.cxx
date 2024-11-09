@@ -23,7 +23,7 @@ void mostrarMatrizAdyacencia(Grafo<T>& grafo) {
     }
     for (int i = 0; i < numVer; ++i) {
         for (int j = 0; j < numVer; ++j) {
-            std::cout << grafo.getAristas()[i][j] << " "; // Asegúrate de que 'aristas' sea accesible.
+            std::cout << grafo.obtenerAristas()[i][j] << " "; // Asegúrate de que 'aristas' sea accesible.
         }
         std::cout << std::endl;
     }
@@ -68,9 +68,9 @@ void pruebaNumeros() {
     // Mostrar las aristas
     std::cout << "Aristas desde vértice 1:" << std::endl;
     for (int i = 0; i < grafo.cantVertices(); ++i) {
-        int peso = grafo.buscarArista(1, grafo.getVertices()[i]);
+        int peso = grafo.buscarArista(1, grafo.obtenerVertices()[i]);
         if (peso != 0) {
-            std::cout << "  Vértice 1 a Vértice " << grafo.getVertices()[i] << " con peso " << peso << std::endl;
+            std::cout << "  Vértice 1 a Vértice " << grafo.obtenerVertices()[i] << " con peso " << peso << std::endl;
         }
     }
 
@@ -118,15 +118,15 @@ void pruebaNumeros() {
     // Mostrar las aristas desde el vértice 1 después de la eliminación
     std::cout << "Aristas desde vértice 1 después de la eliminación:" << std::endl;
     for (int i = 0; i < grafo.cantVertices(); ++i) {
-        int peso = grafo.buscarArista(1, grafo.getVertices()[i]);
+        int peso = grafo.buscarArista(1, grafo.obtenerVertices()[i]);
         if (peso != 0) {
-            std::cout << "  Vértice 1 a Vértice " << grafo.getVertices()[i] << " con peso " << peso << std::endl;
+            std::cout << "  Vértice 1 a Vértice " << grafo.obtenerVertices()[i] << " con peso " << peso << std::endl;
         }
     }
 
     // Eliminar todos los vértices uno por uno
     std::cout << "Eliminando todos los vértices uno por uno..." << std::endl;
-    std::vector<int> verticesAEliminar = grafo.getVertices(); // Copiar los vértices actuales
+    std::vector<int> verticesAEliminar = grafo.obtenerVertices(); // Copiar los vértices actuales
     for (const auto& vertice : verticesAEliminar) {
         std::cout << "Eliminando vértice " << vertice << "..." << std::endl;
         grafo.eliminarVertice(vertice);
@@ -158,15 +158,15 @@ void pruebaLetras() {
     grafo.insAristaNoDir('d', 'f', 1);
 
     std::cout << "Recorrido en profundidad:" << std::endl;
-    std::vector<char>::const_iterator it = grafo.getVertices().begin();
-    for (;it != grafo.getVertices().end(); it++) {
+    std::vector<char>::const_iterator it = grafo.obtenerVertices().begin();
+    for (;it != grafo.obtenerVertices().end(); it++) {
         printf("Recorrido desde %c: \n",*it);
         grafo.DFS(*it);
     }
 
     std::cout << std::endl << "Recorrido en anchura:" << std::endl;
-    std::vector<char>::const_iterator it_B = grafo.getVertices().begin();
-    for (;it_B != grafo.getVertices().end(); it_B++) {
+    std::vector<char>::const_iterator it_B = grafo.obtenerVertices().begin();
+    for (;it_B != grafo.obtenerVertices().end(); it_B++) {
         printf("Recorrido desde %c: \n",*it_B);
         grafo.BFS(*it_B);
     }
