@@ -6,23 +6,40 @@ Grafo<T>::Grafo() {
 }
 
 template <class T>
-void Grafo<T>::setVertices(std::vector<T> vertices) {
+void Grafo<T>::fijarVertices(std::vector<T> vertices) {
     this->vertices = vertices;
 }
 
 template <class T>
-void Grafo<T>::setAristas (int** aristas) {
+void Grafo<T>::fijarAristas (int** aristas) {
     this->aristas = aristas;
 }
 
 template <class T>
-const std::vector<T>& Grafo<T>::getVertices() const {
+const std::vector<T>& Grafo<T>::obtenerVertices() const {
     return this->vertices;
 }
 
 template <class T>
-int** Grafo<T>::getAristas() {
+int** Grafo<T>::obtenerAristas() {
     return this->aristas;
+}
+
+template <class T>
+int** Grafo<T>::obtenerAristasCpy() {
+    //Asignar memoria para las filas
+    int** aristasCopy = new int*[cantVertices()];
+
+    for (int i = 0; i < cantVertices(); ++i) {
+        //Asignar memoria para las columnas
+        aristasCopy[i] = new int[cantVertices()];
+        for (int j = 0; j < cantVertices(); ++j) {
+            //Copiar elementos
+            aristasCopy[i][j] = aristas[i][j];
+        }
+    }
+
+    return aristasCopy; 
 }
 
 template <class T>
@@ -257,20 +274,20 @@ template <class T>
 std::vector<T> Grafo<T>::BFS(T ver_inicial) {
     std::vector<bool> ver_visitados;
     std::vector<T> caminoBFS;
-    std::queue<T> pila_ver;
+    std::queue<T> cola_ver;
 
     if (buscarVertice(ver_inicial) == -1) {
         std::cout << "El vertice " << ver_inicial << " no esta dentro del grafo" << std::endl;
         return caminoBFS;
     }
 
-    pila_ver.push(ver_inicial);
+    cola_ver.push(ver_inicial);
 
     ver_visitados.resize(cantVertices(), false);
 
-    while (!pila_ver.empty()) {
-        T ver_actual = pila_ver.front();
-        pila_ver.pop();
+    while (!cola_ver.empty()) {
+        T ver_actual = cola_ver.front();
+        cola_ver.pop();
         //Obtener todos los vertices que tengan a ver_actual como origen
         std::vector<T> ver_vecinos = vecinosVertice(ver_actual);
         int ind = buscarVertice(ver_actual);
@@ -282,7 +299,7 @@ std::vector<T> Grafo<T>::BFS(T ver_inicial) {
 
             typename std::vector<T>::iterator it = ver_vecinos.begin();
             for (;it != ver_vecinos.end(); it ++) {
-                pila_ver.push(*it);
+                cola_ver.push(*it);
             }   
 
         }

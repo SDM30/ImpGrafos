@@ -12,10 +12,11 @@ class Grafo {
         int** aristas;
     public:
         Grafo();
-        void setVertices(std::vector<T> vertices);
-        void setAristas (int** aristas);
-        const std::vector<T>& getVertices() const;
-        int** getAristas();
+        void fijarVertices(std::vector<T> vertices);
+        void fijarAristas (int** aristas);
+        const std::vector<T>& obtenerVertices() const;
+        int** obtenerAristas();
+        int** obtenerAristasCpy();
         int cantVertices();
         int cantAristas();
         int buscarVertice(T ver);
