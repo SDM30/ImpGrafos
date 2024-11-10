@@ -309,3 +309,66 @@ std::vector<T> Grafo<T>::BFS(T ver_inicial) {
 
     return caminoBFS;
 }
+
+template <class T>
+std::vector<T> Grafo<T>::Djikstra(T ver_inicial) {
+
+    //Definir una coleccion para almacenar las distancias
+    std::vector<int> dist;
+    std::vector<T> pred;
+    std::vector<T> q_desconocidos;
+
+    //Revisar si el vertice inicial existe en el grafo
+    if (buscarVertice(ver_inicial) == -1) {
+        std::cout << "El vertice " << ver_inicial << " no esta en el grafo." << std::endl;
+        return pred;
+    }
+
+    //Recorrer la coleccion de vertices valores iniciales a las distancias y predecesores
+    typename std::vector<T>::iterator it_ver;
+    int i = 0
+    for (it_ver = vertices.begin(); it_ver != vertices.end(); it_ver++, i++) {
+        dist[i] = std::numeric_limits<int>::max();
+        pred[i] = NULL;
+    }
+
+    //Colocar la distancia del veritce inicial  a el mismo en cero
+    int inicio = buscarVertice(ver_inicial);
+    dist[inicio] = 0;
+
+    //Mientras haya vertices desconocidos:
+    while (!q_desconocidos.empty()) {
+        T ver_u = dist[inicio];
+        int pos_u = 0;
+        //Obtener min dist[u]
+        for (int i = 0; i < dist.size(); i++) {
+            if (dist[i] < ver_u) {
+                ver_u = dist[i];
+                pos_u = i;
+            }
+        }
+        //Eliminar de Q_desconocidos
+        std::vector<int>::iterator it_dist = std::find(dist.begin(), dist.end(), ver_u);
+        std::vector<T> vecinos_u = vecinosVertice(ver_u);
+        dist.erase(it_dist);
+
+        //vecinos de u en q
+        std::vector<T> vecinos_des;
+        for (int i = 0; i < q_desconocidos.size(); i ++) {
+            if (vecinos_u[i] == q_desconocidos[i]) {
+                vecinos_des.push_back(vecinos_u[i]);
+            }
+        }
+
+        //Relajar aristas, encontrar caminos menos costosos
+        for (int i = 0; i < vecinos_des.size(); i++) {
+            int alt = dist[pos_u] + buscarArista(ver_u, vecinos_des[i]);
+            if (alt < dist[buscarVertice(vecinos_des[i])]) {
+                dist[buscarVertice(vecinos_des[i])] = alt;
+                pred[buscarVertice(vecinos_des[i])] = ver_u;
+            }
+        }
+    }
+    
+    return pred;
+}

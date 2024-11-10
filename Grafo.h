@@ -4,6 +4,7 @@
 #include <queue>
 #include <stack>
 #include <algorithm>
+#include <limits>
 
 template<class T>
 class Grafo {
@@ -30,7 +31,8 @@ class Grafo {
         std::vector<T> vecinosVertice(T ver);
         void plano();
         std::vector<T> DFS(T ver_inicial);
-        std::vector<T> BFS(T ver_inicial);    
+        std::vector<T> BFS(T ver_inicial);
+        std::vector<T> Djikstra(T ver_inicial);    
 };
 
 #include "Grafo.hxx"

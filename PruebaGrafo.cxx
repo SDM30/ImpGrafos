@@ -5,11 +5,13 @@ template <class T>
 void mostrarMatrizAdyacencia(Grafo<T>& grafo);
 void pruebaNumeros();
 void pruebaLetras();
+void pruebaDijkstra();
 
 int main() {
 
     //pruebaNumeros();
-    pruebaLetras();
+    //pruebaLetras();
+    pruebaDijkstra();
 
 }
 
@@ -177,4 +179,37 @@ void pruebaLetras() {
     grafo.elimAristaNoDir('a', 'b');
     grafo.elimAristaNoDir('a', 'c');
     mostrarMatrizAdyacencia(grafo);
+}
+
+void pruebaDijkstra() {
+    Grafo<char> grafo;
+
+    std::cout << "Insertando vértices..." << std::endl;
+    grafo.insertarVertice('s');
+    grafo.insertarVertice('t');
+    grafo.insertarVertice('x');
+    grafo.insertarVertice('y');
+    grafo.insertarVertice('z');
+
+    std::cout << "Insertando aristas..." << std::endl;
+    grafo.insertarArista('s', 't', 10);
+    grafo.insertarArista('s', 'y', 5);
+
+    grafo.insertarArista('t', 'x', 1);
+    grafo.insertarArista('t', 'y', 2);
+
+    grafo.insertarArista('y', 'z', 2);
+    grafo.insertarArista('y', 't', 3);
+    grafo.insertarArista('y', 'x', 9);
+
+    grafo.insertarArista('x', 'z', 4);
+
+    grafo.insertarArista('z', 'x', 6);
+    grafo.insertarArista('z', 's', 7);
+
+    std::vector<char> pred = grafo.Djikstra('s');
+    for (int i = 0; i < grafo.obtenerVertices().size(); i++) {
+        std::cout << pred[i] << " ";
+    }
+    std::cout << std::endl;
 }
