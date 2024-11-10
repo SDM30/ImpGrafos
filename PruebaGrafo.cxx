@@ -207,7 +207,7 @@ void pruebaDijkstra() {
     grafo.insertarArista('z', 'x', 6);
     grafo.insertarArista('z', 's', 7);
 
-    std::vector<char> pred = grafo.Djikstra('s');
+    std::vector<char*> pred = grafo.Djikstra('s');
     for (int i = 0; i < grafo.obtenerVertices().size(); i++) {
         std::cout << pred[i] << " ";
     }

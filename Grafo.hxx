@@ -311,11 +311,11 @@ std::vector<T> Grafo<T>::BFS(T ver_inicial) {
 }
 
 template <class T>
-std::vector<T> Grafo<T>::Djikstra(T ver_inicial) {
+std::vector<T*> Grafo<T>::Djikstra(T ver_inicial) {
 
     //Definir una coleccion para almacenar las distancias
     std::vector<int> dist;
-    std::vector<T> pred;
+    std::vector<T*> pred;
     std::vector<T> q_desconocidos;
 
     //Revisar si el vertice inicial existe en el grafo
@@ -365,7 +365,7 @@ std::vector<T> Grafo<T>::Djikstra(T ver_inicial) {
             int alt = dist[pos_u] + buscarArista(ver_u, vecinos_des[i]);
             if (alt < dist[buscarVertice(vecinos_des[i])]) {
                 dist[buscarVertice(vecinos_des[i])] = alt;
-                pred[buscarVertice(vecinos_des[i])] = ver_u;
+                pred[buscarVertice(vecinos_des[i])] = &ver_u;
             }
         }
     }
