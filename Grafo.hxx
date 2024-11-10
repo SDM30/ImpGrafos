@@ -326,7 +326,7 @@ std::vector<T> Grafo<T>::Djikstra(T ver_inicial) {
 
     //Recorrer la coleccion de vertices valores iniciales a las distancias y predecesores
     typename std::vector<T>::iterator it_ver;
-    int i = 0
+    int i = 0;
     for (it_ver = vertices.begin(); it_ver != vertices.end(); it_ver++, i++) {
         dist[i] = std::numeric_limits<int>::max();
         pred[i] = NULL;
