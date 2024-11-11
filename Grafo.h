@@ -32,7 +32,8 @@ class Grafo {
         void plano();
         std::vector<T> DFS(T ver_inicial);
         std::vector<T> BFS(T ver_inicial);
-        std::vector<T*> Djikstra(T ver_inicial);    
+        std::vector<T*> Djikstra(T ver_inicial);
+        std::vector<T> caminoDjikstra(T ver_destino, std::vector<T*> predecesores);    
 };
 
 #include "Grafo.hxx"
