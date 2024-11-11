@@ -6,12 +6,14 @@ void mostrarMatrizAdyacencia(Grafo<T>& grafo);
 void pruebaNumeros();
 void pruebaLetras();
 void pruebaDijkstra();
+void pruebaDijkstraNumeros();
 
 int main() {
 
     //pruebaNumeros();
     //pruebaLetras();
     pruebaDijkstra();
+    pruebaDijkstraNumeros();
 
 }
 
@@ -234,6 +236,72 @@ void pruebaDijkstra() {
             std::cout << "No hay camino disponible desde 's'" << std::endl;
         } else {
             for (char vertice : camino) {
+                std::cout << vertice << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+}
+
+void pruebaDijkstraNumeros() {
+    Grafo<int> grafo;
+
+    std::cout << "Insertando vértices..." << std::endl;
+    grafo.insertarVertice(1);
+    grafo.insertarVertice(2);
+    grafo.insertarVertice(3);
+    grafo.insertarVertice(4);
+    grafo.insertarVertice(5);
+    grafo.insertarVertice(6);
+    grafo.insertarVertice(7);
+
+    std::cout << "Insertando aristas..." << std::endl;
+    grafo.insertarArista(1, 2, 2);
+    grafo.insertarArista(1, 6, 6);
+
+    grafo.insertarArista(2, 6, 3);
+    grafo.insertarArista(2, 4, 7);
+    grafo.insertarArista(2, 3, 9);
+
+    grafo.insertarArista(3, 5, 3);
+
+    grafo.insertarArista(4, 3, 4);
+
+    grafo.insertarArista(5, 7, 3);
+
+    grafo.insertarArista(6, 7, 4);
+    grafo.insertarArista(6, 4, 3);
+
+    grafo.insertarArista(7, 5, 8);
+
+    // Ejecutar el algoritmo de Dijkstra desde el vértice 's'
+    std::vector<int*> pred = grafo.Djikstra(1);
+    std::vector<int> vertices = grafo.obtenerVertices();  // Obtener todos los vértices del grafo
+
+    std::cout << "Predecesores desde el vértice 1:" << std::endl;
+    for (int i = 0; i < vertices.size(); i++) {
+        std::cout << "Vértice: " << vertices[i] << " -> Predecesor: ";
+        
+        if (pred[i] != nullptr) {
+            std::cout << *pred[i];
+        } else {
+            std::cout << "Ninguno";  // Para vértices sin predecesor (distancia infinita desde 's')
+        }
+        std::cout << std::endl;
+    }
+
+    //Reconstruir ruta más corta a cada vertice
+    std::cout << "Recorridos desde el vértice 1:" << std::endl;
+    for (int i = 0; i < vertices.size(); i++) {
+        std::vector<int> camino = grafo.caminoDjikstra(vertices[i], pred);  // Llama a la función para reconstruir el camino
+
+        // Imprimir el camino reconstruido desde 's' a `vertice_destino`
+        std::cout << "Vértice " << vertices[i] << ": ";
+        if (camino.empty()) {
+            std::cout << "No hay camino disponible desde 1" << std::endl;
+        } else {
+            for (int vertice : camino) {
                 std::cout << vertice << " ";
             }
             std::cout << std::endl;
