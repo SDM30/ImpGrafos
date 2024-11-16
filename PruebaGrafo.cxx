@@ -13,8 +13,9 @@ int main() {
 
     //pruebaNumeros();
     //pruebaLetras();
-    pruebaDijkstra();
-    pruebaDijkstraNumeros();
+    //pruebaDijkstra();
+    //pruebaDijkstraNumeros();
+    pruebaAlgoritmoPrim();
 
 }
 
