@@ -377,6 +377,47 @@ std::vector<T*> Grafo<T>::Djikstra(T ver_inicial) {
     return pred;
 }
 
+template<class T>
+std::vector<T*> Grafo<T>::Primm(T vertice_inicial) {
+    int num_vertices = cantVertices();
+    std::vector<bool> enMST(num_vertices, false);
+    std::vector<int> llave(num_vertices, std::numeric_limits<int>::max());
+    std::vector<T*> pred(num_vertices, nullptr);
+
+    int inicio = buscarVertice(vertice_inicial);
+    if (inicio == -1) {
+        std::cout << "Error: El vértice inicial no existe en el grafo." << std::endl;
+        return pred;
+    }
+
+    llave[inicio] = 0;
+
+    for (int contador = 0; contador < num_vertices - 1; ++contador) {
+        int u = -1;
+        int llave_minima = std::numeric_limits<int>::max();
+
+        for (int i = 0; i < num_vertices; ++i) {
+            if (!enMST[i] && llave[i] < llave_minima) {
+                llave_minima = llave[i];
+                u = i;
+            }
+        }
+
+        if (u == -1) break;
+        enMST[u] = true;
+
+        for (int v = 0; v < num_vertices; ++v) {
+            int peso = aristas[u][v];
+            if (peso > 0 && !enMST[v] && peso < llave[v]) {
+                llave[v] = peso;
+                pred[v] = &vertices[u];
+            }
+        }
+    }
+
+    return pred;
+}
+
 template <class T>
 std::vector<T> Grafo<T>::caminoDjikstra(T ver_destino, std::vector<T*> predecesores) {
     std::vector<T> camino;

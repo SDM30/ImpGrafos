@@ -7,6 +7,7 @@ void pruebaNumeros();
 void pruebaLetras();
 void pruebaDijkstra();
 void pruebaDijkstraNumeros();
+void pruebaAlgoritmoPrim();
 
 int main() {
 
@@ -308,4 +309,47 @@ void pruebaDijkstraNumeros() {
         }
     }
 
+}
+
+void pruebaAlgoritmoPrim() {
+    // Crear el grafo con 9 vértices etiquetados
+    Grafo<char> grafo;
+
+    // Etiquetas de los vértices
+    grafo.insertarVertice('a');
+    grafo.insertarVertice('b');
+    grafo.insertarVertice('c');
+    grafo.insertarVertice('d');
+    grafo.insertarVertice('e');
+    grafo.insertarVertice('f');
+    grafo.insertarVertice('g');
+    grafo.insertarVertice('h');
+    grafo.insertarVertice('i');
+
+    // Agregar las aristas y sus pesos usando las etiquetas de los vértices
+    grafo.insAristaNoDir('a', 'b', 4);  // a - b
+    grafo.insAristaNoDir('a', 'h', 8);  // a - h
+    grafo.insAristaNoDir('b', 'c', 8);  // b - c
+    grafo.insAristaNoDir('b', 'h', 11); // b - h
+    grafo.insAristaNoDir('h', 'i', 7);  // h - i
+    grafo.insAristaNoDir('h', 'g', 1);  // h - g
+    grafo.insAristaNoDir('i', 'c', 2);  // i - c
+    grafo.insAristaNoDir('i', 'g', 6);  // i - g
+    grafo.insAristaNoDir('c', 'd', 7);  // c - d
+    grafo.insAristaNoDir('c', 'f', 4);  // c - f
+    grafo.insAristaNoDir('g', 'f', 2);  // g - f
+    grafo.insAristaNoDir('d', 'e', 9);  // d - e
+    grafo.insAristaNoDir('e', 'f', 10); // e - f
+    grafo.insAristaNoDir('d', 'f', 14); // d - f
+
+    // Ejecutar el algoritmo de Prim desde el vértice 'a'
+    std::vector<char*> padres = grafo.Primm('a');
+
+    // Imprimir el resultado
+    std::cout << "Árbol de expansión mínima (MST) usando Prim desde el vértice 'a':\n";
+    for (int i = 0; i < padres.size(); ++i) {
+        if (padres[i] != nullptr) {
+            std::cout << *padres[i] << " - " << grafo.obtenerVertices()[i] << "\n";
+        }
+    }
 }
