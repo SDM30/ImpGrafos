@@ -13,9 +13,9 @@ int main() {
 
     //pruebaNumeros();
     //pruebaLetras();
-    //pruebaDijkstra();
-    //pruebaDijkstraNumeros();
-    pruebaAlgoritmoPrim();
+    pruebaDijkstra();
+    pruebaDijkstraNumeros();
+    //pruebaAlgoritmoPrim();
 
 }
 
@@ -212,7 +212,7 @@ void pruebaDijkstra() {
     grafo.insertarArista('z', 's', 7);
 
     // Ejecutar el algoritmo de Dijkstra desde el vértice 's'
-    std::vector<char*> pred = grafo.Djikstra('s');
+    std::vector<char*> pred = grafo.Dijkstra('s');
     std::vector<char> vertices = grafo.obtenerVertices();  // Obtener todos los vértices del grafo
 
     std::cout << "Predecesores desde el vértice 's':" << std::endl;
@@ -230,7 +230,7 @@ void pruebaDijkstra() {
     //Reconstruir ruta más corta a cada vertice
     std::cout << "Recorridos desde el vértice 's':" << std::endl;
     for (int i = 0; i < vertices.size(); i++) {
-        std::vector<char> camino = grafo.caminoDjikstra(vertices[i], pred);  // Llama a la función para reconstruir el camino
+        std::vector<char> camino = grafo.caminoDijkstra(vertices[i], pred);  // Llama a la función para reconstruir el camino
 
         // Imprimir el camino reconstruido desde 's' a `vertice_destino`
         std::cout << "Vértice " << vertices[i] << ": ";
@@ -278,7 +278,7 @@ void pruebaDijkstraNumeros() {
     grafo.insertarArista(7, 5, 8);
 
     // Ejecutar el algoritmo de Dijkstra desde el vértice 's'
-    std::vector<int*> pred = grafo.Djikstra(1);
+    std::vector<int*> pred = grafo.Dijkstra(1);
     std::vector<int> vertices = grafo.obtenerVertices();  // Obtener todos los vértices del grafo
 
     std::cout << "Predecesores desde el vértice 1:" << std::endl;
@@ -296,7 +296,7 @@ void pruebaDijkstraNumeros() {
     //Reconstruir ruta más corta a cada vertice
     std::cout << "Recorridos desde el vértice 1:" << std::endl;
     for (int i = 0; i < vertices.size(); i++) {
-        std::vector<int> camino = grafo.caminoDjikstra(vertices[i], pred);  // Llama a la función para reconstruir el camino
+        std::vector<int> camino = grafo.caminoDijkstra(vertices[i], pred);  // Llama a la función para reconstruir el camino
 
         // Imprimir el camino reconstruido desde 's' a `vertice_destino`
         std::cout << "Vértice " << vertices[i] << ": ";

@@ -311,7 +311,7 @@ std::vector<T> Grafo<T>::BFS(T ver_inicial) {
 }
 
 template <class T>
-std::vector<T*> Grafo<T>::Djikstra(T ver_inicial) {
+std::vector<T*> Grafo<T>::Dijkstra(T ver_inicial) {
 
     // Definir una colección para almacenar las distancias y predecesores
     std::vector<int> dist;         
@@ -419,7 +419,7 @@ std::vector<T*> Grafo<T>::Primm(T vertice_inicial) {
 }
 
 template <class T>
-std::vector<T> Grafo<T>::caminoDjikstra(T ver_destino, std::vector<T*> predecesores) {
+std::vector<T> Grafo<T>::caminoDijkstra(T ver_destino, std::vector<T*> predecesores) {
     std::vector<T> camino;
     T* ver_act = &ver_destino;
 
