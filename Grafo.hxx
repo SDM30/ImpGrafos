@@ -318,53 +318,51 @@ std::vector<T*> Grafo<T>::Dijkstra(T ver_inicial) {
     std::vector<T*> pred;          
     std::vector<T> q_desconocidos; 
 
-    // Revisar si el vértice inicial existe en el grafo
     if (buscarVertice(ver_inicial) == -1) {
         std::cout << "El vértice " << ver_inicial << " no está en el grafo." << std::endl;
         return pred;
     }
 
     // Inicializar los vectores `dist` y `pred` con valores iniciales
-    dist.resize(vertices.size(), std::numeric_limits<int>::max()); // Asignar distancias iniciales "infinito"
+    dist.resize(vertices.size(), std::numeric_limits<int>::max()); // Asignar distancias iniciales infinito
     pred.resize(vertices.size(), nullptr);                         // Asignar predecesores iniciales como nullptr
 
-    // Colocar la distancia del vértice inicial a sí mismo en cero
     int inicio = buscarVertice(ver_inicial);
     dist[inicio] = 0;
 
-    // Inicializar `q_desconocidos` con todos los vértices del grafo
     q_desconocidos = vertices;
 
     // Mientras haya vértices desconocidos en `q_desconocidos`
     while (!q_desconocidos.empty()) {
-        // Seleccionar el vértice `u` en `q_desconocidos` con la menor distancia
+        // Seleccionar el vértice u en q_desconocidos con la menor distancia
         int pos_u = 0;
         int min_dist = std::numeric_limits<int>::max();
 
         for (int i = 0; i < dist.size(); i++) {
-            // Solo considerar vértices que están en `q_desconocidos`
+            // Solo considerar vértices que están en q_desconocidos
             if (std::find(q_desconocidos.begin(), q_desconocidos.end(), vertices[i]) != q_desconocidos.end() &&
                 dist[i] < min_dist) {
                 min_dist = dist[i];
                 pos_u = i;
             }
         }
-
-        T ver_u = vertices[pos_u]; // `ver_u` es el vértice con la distancia mínima
-        // Remover `ver_u` de `q_desconocidos` ya que lo estamos procesando
+        
+        // ver_u es el vértice con la distancia mínima
+        T ver_u = vertices[pos_u];
+        // Remover ver_u de q_desconocidos ya que lo estamos procesando
         q_desconocidos.erase(std::remove(q_desconocidos.begin(), q_desconocidos.end(), ver_u), q_desconocidos.end());
 
-        // Obtener los vecinos de `ver_u`
+        // Obtener los vecinos de ver_u
         std::vector<T> vecinos_u = vecinosVertice(ver_u);
 
         // Relajar aristas: buscar caminos menos costosos a los vecinos
         for (T vecino : vecinos_u) {
-            // Verificar que el vecino esté en `q_desconocidos`
+            // Verificar que el vecino esté en q_desconocidos
             if (std::find(q_desconocidos.begin(), q_desconocidos.end(), vecino) != q_desconocidos.end()) {
-                int alt = dist[pos_u] + buscarArista(ver_u, vecino); // Calcular nueva distancia
-                int pos_v = buscarVertice(vecino);                   // Obtener la posición del vecino
+                int alt = dist[pos_u] + buscarArista(ver_u, vecino);
+                int pos_v = buscarVertice(vecino);
 
-                // Si encontramos una distancia menor, actualizamos `dist` y `pred`
+                // Si encontramos una distancia menor, actualizamos dist y pred
                 if (alt < dist[pos_v]) {
                     dist[pos_v] = alt;                // Actualizar distancia mínima
                     pred[pos_v] = &vertices[pos_u];   // Actualizar predecesor
